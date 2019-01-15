@@ -1,6 +1,6 @@
 {
   "name": "nsh-git-push-tag",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "description": "auto push git last tag +1 .",
   "main": "index.js",
   "author": "nanyuantingfeng",

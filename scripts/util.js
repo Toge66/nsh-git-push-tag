@@ -47,19 +47,22 @@ function compareUnit(a, b) {
   return getBuildNo(b) - getBuildNo(a)
 }
 
-function searchUseVersion(tags, version, isProduction, isNoBeta, isMinio) {
+function searchUseVersion(tags, version, isProduction, isNoBeta, isMinio, suffix) {
   let validTags = tags.filter(line => {
 
-    if (isNoBeta && isMinio) {
-      return line.endsWith('-noBeta-minio')
-    }
-
     if (isNoBeta) {
-      return line.endsWith('-noBeta')
+      let str = '-noBeta'
+      if (isMinio) str += '-minio'
+      if (!!suffix) str += `-${suffix}`
+      return line.endsWith(str)
     }
 
     if (isMinio) {
       return line.endsWith('-minio')
+    }
+
+    if (!!suffix) {
+      return line.endsWith(suffix);
     }
 
     return !~line.indexOf('-')

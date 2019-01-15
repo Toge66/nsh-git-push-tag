@@ -7,33 +7,35 @@ function calculateVersion(program) {
   return util.getAllTags()
 
     .then(result => {
-      let version = util.getCWDPackageVersion()
-      let tags = util.split(result.stdout)
+      let version = util.getCWDPackageVersion();
+      let tags = util.split(result.stdout);
+      const { isProduction, isNoBeta, isMinio, suffix = "" } = program;
+      tags = util.searchUseVersion(
+        tags,
+        version,
+        isProduction,
+        isNoBeta,
+        isMinio,
+        suffix
+      );
 
-      tags = util.searchUseVersion(tags, version,
-        program.isProduction,
-        program.isNoBeta,
-        program.isMinio,
-      )
-
-      let buildNo = 0
+      let buildNo = 0;
 
       if (tags.length > 0) {
-        buildNo = util.getBuildNo(tags[0])
-        buildNo += 1
+        buildNo = util.getBuildNo(tags[0]);
+        buildNo += 1;
       }
 
-      let p = program.isProduction ? '' : 'v'
-      let n = program.isNoBeta ? '-noBeta' : ''
-      let m = program.isMinio ? '-minio' : ''
-      let s = program.suffix ? '-' + program.suffix : ''
+      let p = isProduction ? "" : "v";
+      let n = isNoBeta ? "-noBeta" : "";
+      let m = isMinio ? "-minio" : "";
+      let s = suffix ? "-" + suffix : "";
 
-      return p + version + '.' + buildNo + n + m + s
-    })
+      return p + version + "." + buildNo + n + m + s;
+    });
 }
 
 function tags(program) {
-
   return calculateVersion(program)
     .then(tag => {
       console.info('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', tag)

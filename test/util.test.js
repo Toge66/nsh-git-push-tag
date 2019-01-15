@@ -11,7 +11,7 @@ test('tags', async () => {
     isNoBeta: false,
     isMinio: false,
   })
-  expect(tag).toEqual('v1.8.1.0')
+  expect(tag).toEqual('v1.8.1.2')
 
   tag = await tags.calculateVersion({
     isProduction: true,
@@ -27,7 +27,7 @@ test('tags', async () => {
     isMinio: false,
   })
 
-  expect(tag).toEqual('v1.8.1.0-noBeta')
+  expect(tag).toEqual('v1.8.1.1-noBeta')
 
   tag = await tags.calculateVersion({
     isProduction: false,
