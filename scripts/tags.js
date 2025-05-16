@@ -14,7 +14,10 @@ module.exports = async function tags(program) {
     const version = isFromFile
       ? await getFileVersion(program.file)
       : getCWDPackageVersion();
-    const tag = calculateVersion(program, result, version);
+    let tag = version;
+    if (!program.versionTag) {
+      tag = calculateVersion(program, result, version);
+    }
     console.info(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", tag);
     return pushNewTag(tag, program.comment);
   } catch (e) {

@@ -11,6 +11,7 @@ program.version(version)
     .option('-s, --suffix [value]', 'Append Tag Suffix')
     .option('-c, --comment [value]', 'Append Tag Comment')
     .option('-f, --file [value]', 'Get Version From File')
+    .option('-v, --versionTag', 'Version Tag')
     .parse(process.argv);
 
 tags(program);
